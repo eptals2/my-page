@@ -60,9 +60,9 @@ header {
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  background: rgba(26, 26, 26, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(26, 26, 26, 0.24);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
   border-bottom: 1px solid rgba(75, 255, 51, 0.1);
   animation: slideDown 0.8s ease;
 }
