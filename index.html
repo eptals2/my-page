@@ -12,9 +12,10 @@
             --primary: #0a0a0a;
             --accent: #4bff33;
             --surface: #1a1a1a;
+            --card-bg: #242424;
             --text: #fafafa;
-            --text-muted: #474747;
-            --border: #e0e0e0;
+            --text-muted: #999999;
+            --border: #333333;
         }
 
         * {
@@ -88,6 +89,7 @@
             font-family: 'Archivo Black', sans-serif;
             font-size: 1.5rem;
             letter-spacing: -1px;
+            color: var(--accent);
         }
 
         nav {
@@ -118,6 +120,10 @@
             width: 100%;
         }
 
+        nav a:hover {
+            color: var(--accent);
+        }
+
         /* Hero */
         .hero {
             min-height: 100vh;
@@ -137,20 +143,102 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 51, 102, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 51, 102, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(75, 255, 51, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(75, 255, 51, 0.08) 0%, transparent 50%);
             pointer-events: none;
         }
 
         .hero-content {
-            max-width: 1200px;
+            max-width: 1400px;
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            /* Content styles remain the same */
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 40px rgba(75, 255, 51, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0%);
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .hero-image-wrapper:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .hero-image-bg {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(75, 255, 51, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        .hero-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--card-bg) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            font-family: 'Archivo Black', sans-serif;
+            color: var(--accent);
+            letter-spacing: -3px;
         }
 
         .hero-content h1 {
             font-family: 'Archivo Black', sans-serif;
-            font-size: clamp(3rem, 8vw, 7rem);
+            font-size: clamp(3rem, 8vw, 6rem);
             line-height: 0.95;
             letter-spacing: -3px;
             margin-bottom: 2rem;
@@ -208,13 +296,19 @@
 
         .btn-primary {
             background: var(--accent);
-            color: white;
+            color: var(--primary);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--text);
             border: 2px solid var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--primary);
         }
 
         /* Projects Section */
@@ -238,11 +332,11 @@
         }
 
         .project-card {
-            background: white;
+            background: var(--card-bg);
             border: 1px solid var(--border);
             padding: 2.5rem;
             position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             overflow: hidden;
         }
 
@@ -261,7 +355,8 @@
 
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border-color: var(--accent);
         }
 
         .project-card:hover::before {
@@ -271,7 +366,7 @@
         .project-number {
             font-family: 'Archivo Black', sans-serif;
             font-size: 3rem;
-            color: var(--surface);
+            color: rgba(75, 255, 51, 0.1);
             position: absolute;
             top: 1rem;
             right: 1rem;
@@ -283,6 +378,7 @@
             font-size: 1.8rem;
             margin-bottom: 1rem;
             letter-spacing: -1px;
+            color: var(--text);
         }
 
         .project-card p {
@@ -303,6 +399,7 @@
             border: 1px solid var(--border);
             font-size: 0.85rem;
             font-weight: 500;
+            color: var(--accent);
         }
 
         /* Skills Section */
@@ -376,20 +473,24 @@
         .social-links {
             display: flex;
             gap: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .social-links a {
             padding: 1rem 2rem;
-            background: var(--primary);
-            color: white;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
             text-decoration: none;
             font-weight: 700;
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
         }
 
         .social-links a:hover {
             transform: translateY(-3px);
             background: var(--accent);
+            border-color: var(--accent);
+            color: var(--primary);
         }
 
         /* Footer */
@@ -404,6 +505,12 @@
         @media (max-width: 768px) {
             header {
                 padding: 1.5rem 2rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
             }
 
             nav {
@@ -412,6 +519,27 @@
 
             .hero {
                 padding: 2rem;
+                min-height: 80vh;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-image-container {
+                width: 250px;
+                height: 250px;
+                margin: 0 auto;
+                order: -1;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .cta-buttons {
+                justify-content: center;
             }
 
             .projects {
@@ -420,6 +548,11 @@
 
             .projects-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project-card {
+                min-width: unset;
             }
 
             .skills {
@@ -475,14 +608,27 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>
-                Creative Developer
-                <span>& Designer</span>
-            </h1>
-            <p>Crafting digital experiences that merge beautiful design with powerful functionality. Based in Butuan City.</p>
-            <div class="cta-buttons">
-                <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            <div class="hero-text">
+                <h1>
+                    Creative Developer
+                    <span>& Designer</span>
+                </h1>
+                <p>Crafting digital experiences that merge beautiful design with powerful functionality. Based in Butuan City.</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            
+            <!-- Display Picture Area -->
+            <div class="hero-image-container">
+                <div class="hero-image-bg"></div>
+                <div class="hero-image-wrapper">
+                    <img src="ephraim-talaba-professional-dp.png" alt="Ephraim Talaba">
+                    
+                    <!-- Placeholder with initials (remove this when you add your photo) -->
+                    <div class="hero-image-placeholder">ET</div>
+                </div>
             </div>
         </div>
     </section>
@@ -526,10 +672,11 @@
                     <span class="tech-tag">AWS</span>
                 </div>
             </div>
+
             <div class="project-card fade-in">
                 <span class="project-number">04</span>
                 <h3>Project ImsAI</h3>
-                <p>Social networking app connecting creatives worldwide with portfolio showcasing and collaboration tools.</p>
+                <p>Intelligent inventory management system with AI-powered forecasting and automated reordering capabilities.</p>
                 <div class="tech-stack">
                     <span class="tech-tag">Next.js</span>
                     <span class="tech-tag">Firebase</span>
@@ -562,7 +709,7 @@
                     <ul>
                         <li>Node.js & Express</li>
                         <li>Python & Flask</li>
-                        <li>Php & Laravel</li>
+                        <li>PHP & Laravel</li>
                         <li>RESTful APIs</li>
                         <li>GraphQL</li>
                         <li>Database Design</li>
@@ -613,7 +760,7 @@
                 <svg width="100%" height="400" viewBox="0 0 400 400">
                     <defs>
                         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff3366;stop-opacity:1" />
+                            <stop offset="0%" style="stop-color:#4bff33;stop-opacity:1" />
                             <stop offset="100%" style="stop-color:#0a0a0a;stop-opacity:1" />
                         </linearGradient>
                     </defs>
