@@ -126,6 +126,7 @@ nav a:hover {
   padding: 4rem;
   position: relative;
   overflow: hidden;
+  padding-top: 9rem;
 }
 
 .hero::before {
